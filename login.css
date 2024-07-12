@@ -1,0 +1,114 @@
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+}
+body {
+    background-image: url('https://images.ctfassets.net/wqdtr8q8192q/28KbLkjsWV6G0MV11VfXmE/a2d73238229bfda923152ed30aa905ec/iStock-1353245759.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+}
+
+.navbar img.logo {
+    float: left;
+    width: 100px;
+    height: 50px;
+    margin: 5px 20px;
+}
+
+.navbar .nav-links {
+    float: right;
+}
+
+.navbar .nav-links a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 21px 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.navbar .nav-links a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.navbar .nav-links a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+form .form-group {
+    margin-bottom: 15px;
+}
+
+form .form-group label {
+    display: block;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+form .form-group input[type="email"],
+form .form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form .form-group input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #04AA6D;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+form .form-group input[type="submit"]:hover {
+    background-color: #038c56;
+}
+
+form .form-group a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #04AA6D;
+    text-decoration: none;
+}
+
+form .form-group a:hover {
+    text-decoration: underline;
+}
+

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">  <title>Navigation Bar with Logo</title> -->
+  <link rel="stylesheet" href="reg.css">
+</head>
+<body>
+
+<div class="navbar">
+  <img src="C:\Sample_Project\Trip.png" alt="Logo" class="logo">
+  <div class="nav-links">
+    <a class="active" href="front.html">Home</a>
+    <a href="dest.html">Destination</a>
+    <a href="#gallery">Gallery</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="login.html">Sign In</a>
+  </div>
+</div>
+<br>
+   <div class="search-bar">
+    <div class="place">
+      <i class="bi bi-cursor"></i>
+      <input type="search" id="place" placeholder="Where you want to go?">
+    </div>
+    <div class="date">
+      <input type="date" id="date">
+    </div>
+    <div class="member">
+      <div class="dropdown">
+        <input type="text" id="member" placeholder="Select members.." readonly>
+        <div class="dropdown-content">
+          <div>
+            <span>Adult</span>
+            <button type="button" onclick="decrement('adults')">-</button>
+            <span id="adults">1</span>
+            <button type="button" onclick="increment('adults')">+</button>
+          </div>
+          <div>
+            <span>Child</span>
+            <button type="button" onclick="decrement('child')">-</button>
+            <span id="child">0</span>
+            <button type="button" onclick="increment('child')">+</button>
+          </div>
+          <div>
+            <span>Rooms</span>
+            <button type="button" onclick="decrement('room')">-</button>
+            <span id="room">0</span>
+            <button type="button" onclick="increment('room')">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="search-button">
+      <button type="button" onclick="showSearchResults()">Search</button>
+    </div>
+   </div>
+   <div class="result" id="results"></div>
+<br><br>
+
+   <div class="info">
+    <h2>
+      Top destinations for India city trips
+    </h2>
+   </div>
+
+   <div class="wrapper">
+    <div class="card">
+        <div class="poster">
+          <img src="https://www.agoda.com/wp-content/uploads/2023/02/Goa-overview-things-to-do-in-goa.jpg" alt="Location Unknown">
+        </div>
+        <div class="details">
+            <h1>Goa</h1>
+            <p class="desc">
+              Goa, situated on India's western coast, boasts stunning beaches, vibrant culture, and rich history. Despite its size, it offers diverse experiences: water sports at Calangute, Baga, Palolem, and a fusion of Indian and Portuguese cuisine, highlighting dishes like fish curry and vindaloo.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="poster">
+          <img src="https://aahiltours.com/public/assets/images/1909231233Kashmir%20Thumbnal.jpg" alt="Location Unknown"></div>
+        <div class="details">
+            <h1>Kashmir</h1>
+
+            <p class="desc">
+              Kashmir, often dubbed "Paradise on Earth," showcases snow-capped mountains, pristine valleys, and serene lakes in the Himalayas. Key attractions include Dal Lake, renowned for its iconic houseboats, and Gulmarg, famous for its skiing slopes and cable car rides.
+
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="poster">
+          <img src="https://www.authenticindiatours.com/app/uploads/2022/05/10-reasons-to-visit-Kerala-Kumarakom-Back-Waters-Boat-House-1400x550-c-default.jpg" alt="Location Unknown"></div>
+        <div class="details">
+            <h1>Kerala</h1>
+            <p class="desc">
+              Kerala, "God's Own Country," captivates with lush greenery, tranquil backwaters, and serene beaches. Explore Alleppey's backwaters on a houseboat and Munnar's tea plantations for breathtaking views and memorable wildlife spotting adventures.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="poster">
+          <img src="https://media.istockphoto.com/id/1216722235/photo/mountain-with-green-grass-and-beautiful-sky.jpg?s=612x612&w=0&k=20&c=UD4Rmexxtkci9q-gH_PCUaBw6suwTCKp7SkZTXukQ2U=" alt="Location Unknown"></div>
+        <div class="details">
+            <h1>Coorg</h1>
+            <p class="desc">
+              Coorg, or Kodagu, nestled in Karnataka's Western Ghats, is famed for misty hills, coffee estates, and waterfalls. Abbey Falls, a serene waterfall, and Namdroling Monastery, a grand Tibetan Buddhist site, beckon nature enthusiasts.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="poster">
+          <img src="https://media.istockphoto.com/id/505239248/photo/humayun-tomb-new-delhi-india.jpg?s=612x612&w=0&k=20&c=UQTU6YOnVsSklzHi34cOhNW5AhsACDxKLiD9--T-3Kg=" alt="Location Unknown"></div>
+        <div class="details">
+            <h1>Delhi</h1>
+            <p class="desc">
+              Delhi, India's vibrant capital, melds history with modernity, featuring iconic landmarks like the Red Fort, India Gate, and Qutub Minar. The Red Fort, a UNESCO World Heritage Site, showcases magnificent Mughal architecture.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="poster">
+          <img src="https://images.moneycontrol.com/static-mcnews/2022/12/Mumbai.jpg?impolicy=website&width=1600&height=900" alt="Location Unknown"></div>
+        <div class="details">
+            <h1>Mumbai</h1>
+            <p class="desc">
+              Mumbai, India's bustling financial hub, embodies diversity and energy. Its iconic Gateway of India overlooks the Arabian Sea, while Marine Drive offers scenic views. Explore Bollywood with tours, and visit Elephanta Caves for rich cultural heritage.
+            </p>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+<section class="footer">
+  <div class="box-container">
+    <div class="box">
+      <h3>Quick Links</h3>
+      <a href="front.html"> <i class="fas fa-angle-right"></i>Home</a>
+      <a href="dest.html"> <i class="fas fa-angle-right"></i>Destination</a>
+      <a href="#"> <i class="fas fa-angle-right"></i>Gallery</a>
+      <a href="contact.html"> <i class="fas fa-angle-right"></i>Contact us</a>
+    </div>
+    <div class="box">
+      <h3>Extra Links</h3>
+      <a href="#"> <i class="fas fa-angle-right"></i>Ask Questions</a>
+      <a href="#"> <i class="fas fa-angle-right"></i>About Us</a>
+      <a href="#"> <i class="fas fa-angle-right"></i>Privacy Policy</a>
+      <a href="#"> <i class="fas fa-angle-right"></i>Terms of Use</a>
+    </div>
+    <div class="box">
+      <h3>Contact Info</h3>
+      <a href="#"> <i class="fas fa-phone"></i>+91-8765287901</a>
+      <a href="#"> <i class="fas fa-phone"></i>+91-8765287902</a>
+      <a href="#"> <i class="fas fa-envelope"></i>revankar211@gmail.com</a>
+      <a href="#"> <i class="fas fa-map"></i>Bangalore, India 560040</a>
+    </div>
+    <div class="box">
+      <h3>Follow Us</h3>
+      <a href="#"><i class="fab fa-facebook-f"></i>Facebook</a>
+      <a href="#"><i class="fab fa-twitter"></i>Twitter</a>
+      <a href="#"><i class="fab fa-instagram"></i>Instagram</a>
+      <a href="#"><i class="fab fa-linkedin"></i>Linkedin</a>
+    </div>
+  </div>
+</section>
+<script src="reg.js"></script>
+</body>
+</html>

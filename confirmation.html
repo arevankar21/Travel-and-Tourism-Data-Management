@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="confirmation.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <form id="paymentForm">
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" required><br>
+
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="text" id="expiryDate" required><br>
+
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" required><br>
+
+        <label for="cardHolderName">Card Holder Name:</label>
+        <input type="text" id="cardHolderName" required><br>
+
+        <input type="hidden" id="amount" value="500"> <!-- Example amount -->
+        <input type="hidden" id="status" value="Pending">
+        <input type="hidden" id="customer_id">
+        <input type="hidden" id="payment_gateway_response">
+
+        <button type="submit">Submit Payment</button>
+    </form>
+
+    <script src="agent_main_page.js"></script>
+</body>
+</html>

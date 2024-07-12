@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Main Page</title>
+    <link rel="stylesheet" href="agent_main_page.css">
+</head>
+<body>
+    <h1>Welcome, Agent!</h1>
+    
+    <h2>Dashboard</h2>
+    <div>
+        <p>Key Metrics:</p>
+        
+        <p>Total Bookings: <span id="totalBookings">0</span></p>
+        <p>Total Revenue: $<span id="totalRevenue">0</span></p>
+    </div>
+   
+    <div id="bookingsContainer"></div>
+
+    <h2>Booking Management</h2>
+    <div>        
+        <button onclick="viewBookings()">View Bookings</button>
+        <button onclick="modifyBooking()">Modify Booking</button>       
+    </div>
+
+    <h2>Customer Management</h2>
+    <div>       
+        <button onclick="viewCustomers()">View Customers</button>
+        <button onclick="searchCustomer()">Search Customer</button>        
+    </div>
+
+    <h2>Inventory Management</h2>
+    <div>        
+        <button onclick="manageInventory()">Manage Inventory</button>        
+    </div>
+
+    <h2>Reports and Analytics</h2>
+    <div>        
+        <button onclick="generateReports()">Generate Reports</button>        
+    </div>
+
+    <h2>Communication Tools</h2>
+    <div>       
+        <button onclick="sendEmail()">Send Email</button>        
+    </div>
+
+    <h2>Settings and Profile</h2>
+    <div>        
+        <button onclick="editProfile()">Edit Profile</button>
+        <button onclick="changePassword()">Change Password</button>        
+    </div>
+
+    <h2>Support and Help</h2>
+    <div>        
+        <button onclick="contactSupport()">Contact Support</button>        
+    </div>
+
+    <script src="agent_main_page.js"></script>
+</body>
+</html>

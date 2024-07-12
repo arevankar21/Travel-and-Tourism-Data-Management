@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details</title>
+    <style>
+        body {
+            background-image: url('https://cdn.wallpapersafari.com/93/75/bazxhP.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #272829;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: black;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>Booking Details</h1>
+    <div id="hotelDetails"></div>
+    <form id="bookingDetailsForm">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+        <label for="mobileNumber">Mobile Number:</label>
+        <input type="tel" id="mobileNumber" name="mobileNumber" required>
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" name="email" required>
+        <input type="hidden" id="hotelName" name="hotelName">
+        <input type="hidden" id="hotelAddress" name="hotelAddress">
+        <input type="hidden" id="hotelPrice" name="hotelPrice">
+        <button type="submit">Confirm Booking</button>
+    </form>
+
+    <script>
+        // Retrieve hotel details from URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const hotelName = urlParams.get('hotelName');
+        const hotelAddress = urlParams.get('hotelAddress');
+        const hotelPrice = urlParams.get('hotelPrice');
+
+        // Display selected hotel details
+        const hotelDetails = document.getElementById('hotelDetails');
+        hotelDetails.innerHTML = `
+            <h2>Selected Hotel:</h2>
+            <p><strong>Name:</strong> ${hotelName}</p>
+            <p><strong>Address:</strong> ${hotelAddress}</p>
+            <p><strong>Price per Night:</strong> ${hotelPrice}</p>
+        `;
+
+        // Set hidden input values for form submission
+        document.getElementById('hotelName').value = hotelName;
+        document.getElementById('hotelAddress').value = hotelAddress;
+        document.getElementById('hotelPrice').value = hotelPrice;
+
+        // Handle form submission
+    document.getElementById('bookingDetailsForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Retrieve user-entered data
+        const fullName = document.getElementById('fullName').value.trim();
+        const mobileNumber = document.getElementById('mobileNumber').value.trim();
+        const email = document.getElementById('email').value.trim();
+        let amount = parseFloat(hotelPrice.replace(/[^0-9.-]+/g, '')); // Parse amount from hotelPrice
+        const date = new Date().toISOString().split('T')[0];
+
+        // Limit amount for testing purposes
+        if (amount > 10000) {
+            amount = 100; // Set a small amount for testing
+        }
+
+        // Create form data object
+        const formData = {
+            fullName: fullName,
+            mobileNumber: mobileNumber,
+            email: email,
+            hotelName: hotelName,
+            hotelAddress: hotelAddress,
+            hotelPrice: hotelPrice,
+            date: date, // Add the date field
+            amount: amount * 100 // Include amount for backend processing
+        };
+
+        // Retrieve token from localStorage
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            console.error('Token not found. User may not be authenticated.');
+            return;
+        }
+
+        // POST request to create booking
+        fetch('http://localhost:5500/api/bookings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // POST request to create order with Razorpay
+            fetch('http://localhost:5500/api/createOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ amount: amount * 100 })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(order => {
+                // Call Razorpay checkout function
+                openRazorpayCheckout(order.id, amount * 100);
+            })
+            .catch(error => {
+                console.error('Error creating order:', error);
+                alert('Order creation failed. Please try again.');
+            });
+        })
+        .catch(error => {
+            console.error('Error creating booking:', error);
+            alert('Error creating booking. Please try again later.');
+        });
+    });
+
+    function openRazorpayCheckout(orderId, amount) {
+        const options = {
+            "key": "rzp_test_ybqxNC9dW5rcp0",
+            "amount": amount,
+            "currency": "INR",
+            "name": "Akshay Revankar",
+            "description": "Hotel Booking",
+            "order_id": orderId,
+            "handler": function (response) {
+                fetch('http://localhost:5500/api/verifyPayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        alert('Payment verification successful!');
+                        window.location.href = '';
+                    } else {
+                        alert('Payment verification failed!');
+                    }
+                })
+                .catch(err => {
+                    console.error('Error verifying payment:', err);
+                    alert('Error verifying payment.');
+                });
+            },
+            "prefill": {
+                "name": document.getElementById('fullName').value,
+                "email": document.getElementById('email').value,
+                "contact": document.getElementById('mobileNumber').value
+            },
+            "theme": {
+                "color": "#F37254"
+            }
+        };
+        const rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+    </script>
+</body>
+</html>
